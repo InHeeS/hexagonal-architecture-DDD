@@ -1,13 +1,13 @@
 package tobyspring.splearn.domain;
 
+import jakarta.persistence.Embeddable;
 import java.util.regex.Pattern;
+import lombok.NoArgsConstructor;
 
+@Embeddable
 public record Email(String address) {
-
     private static final Pattern EMAIL_PATTERN =
         Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
-
-
     /**
      * compact record constructor
      * @param address
@@ -17,7 +17,4 @@ public record Email(String address) {
             throw new IllegalArgumentException("이메일 형식이 바르지 않습니다. " + address);
         }
     }
-
-
-
 }
