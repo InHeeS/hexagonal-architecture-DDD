@@ -1,31 +1,21 @@
 package tobyspring.splearn.domain;
 
-import static java.util.Objects.*;
-import static org.springframework.util.Assert.*;
+import static java.util.Objects.requireNonNull;
+import static org.springframework.util.Assert.state;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 
 @Entity
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Embedded
+public class Member extends AbstractEntity {
     @NaturalId
     private Email email;
 
@@ -33,8 +23,6 @@ public class Member {
 
     private String passwordHash;
 
-    // @Getter(AccessLevel.NONE)
-    @Enumerated(EnumType.STRING)
     private MemberStatus status;
 
     public static Member register(MemberRegisterRequest createRequest, PasswordEncoder passwordEncoder) {
