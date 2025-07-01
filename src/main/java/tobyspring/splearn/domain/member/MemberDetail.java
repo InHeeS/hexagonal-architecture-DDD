@@ -1,5 +1,6 @@
 package tobyspring.splearn.domain.member;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
@@ -16,7 +17,6 @@ import tobyspring.splearn.domain.AbstractEntity;
 @ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDetail extends AbstractEntity {
-    @Embedded
     private Profile profile;
 
     private String introduction;
