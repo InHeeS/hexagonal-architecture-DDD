@@ -1,6 +1,7 @@
 package tobyspring.splearn.domain.member;
 
 import static java.util.Objects.requireNonNull;
+import static org.springframework.util.Assert.*;
 import static org.springframework.util.Assert.state;
 
 import jakarta.persistence.CascadeType;
@@ -13,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.util.Assert;
 import tobyspring.splearn.domain.AbstractEntity;
 import tobyspring.splearn.domain.shared.Email;
 
@@ -65,11 +67,9 @@ public class Member extends AbstractEntity {
         return passwordEncoder.matches(password, this.passwordHash);
     }
 
-    public void changeNickname(String nickname) {
-        this.nickname = requireNonNull(nickname);
-    }
-
     public void updateInfo(MemberInfoUpdateRequest updateRequest){
+        state(getStatus() == MemberStatus.ACTIVE, "활성화된 회원만 정보 수정이 가능합니다.");
+
         this.nickname = Objects.requireNonNull(updateRequest.nickname());
 
         this.detail.updateInfo(updateRequest);
